@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #inputArea{
+        width: 300px;
+        height: 100px;
+        background-color: wheat;
+        text-align: center;
+        border: solid 3px greenyellow;
+        font-size: 60px;
+    }
+</style>
+
+<body>
+    <div style = "font-size:50px;color: violet;">
+        Hit&Blow!
+        <button id ="startBtn" onclick = "newGame()">START</button>
+    </div>
+   <div id ="inputArea"></div>
+
+    <script>
+        let initialValue = [];
+        let inputNum = [];
+        let queNum = [];
+
+        function newGame(){
+            initialValue = ["0","0","0","0"];
+            inputNum = document.getElementById("inputArea");
+            inputNum.innerText =  initialValue[0]+initialValue[1]+initialValue[2]+initialValue[3];
+            selectNumber();
+
+        }
+        function selectNumber(){
+            const numList = ["0","1","2","3","4","5","6","7","8","9"];
+            for(let i=0; i<4; i++){
+                let ran =Math.floor(Math.random() * numList.length-1);
+                numList.splice(ran,1);
+                queNum[i] = numList[ran];
+                console.log(queNum);
+            }
+        }
+
+
+    </script>
+
+</body>
+</html>
