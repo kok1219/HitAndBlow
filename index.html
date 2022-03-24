@@ -33,6 +33,7 @@
 
 
     <script>
+        let array = [];
         let inputNum = [];
         let queNum = [];
 
@@ -49,16 +50,23 @@
 
         //4桁の数字の判定
         submit.addEventListener('click', function(){
+            inputNum = (document.getElementById("inputArea").value); 
             document.getElementById("outputArea").textContent = "";
-            inputNum = document.getElementById("inputArea").value;
+
             let digit = String(inputNum).length;
-            
+
             if(digit === 4){
-                console.log(inputNum);
+                let splits = inputNum.split("");
+                let setNum  = Array.from(new Set(inputNum));
+                console.log(setNum);
+                document.getElementById("outputArea").textContent = ("数字は重複しないようにしてください");
+                return
+
             } else {
                 document.getElementById("outputArea").textContent = ("数字は4桁で入力してください");
                 return
             }
+
         
             judge();
 
