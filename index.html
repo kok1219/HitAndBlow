@@ -62,12 +62,11 @@
                 let setNum = Array.from(new Set(splits)).length;
                 console.log(setNum);
                 console.log(splits);
-                
+
                 if(setNum < 4){
                     document.getElementById("outputArea").textContent = ("数字は重複しないようにしてください");
                     return
                 }
-
             } else {
                 document.getElementById("outputArea").textContent = ("数字は4桁で入力してください");
                 return
