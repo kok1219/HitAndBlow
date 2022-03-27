@@ -15,19 +15,28 @@
         border: solid 3px greenyellow;
         font-size: 30px;
     }
+    #submit,#startBtn{
+        width: 60px;
+        height: 25px;
+    }
+
 </style>
 
 <body>
     <div style = "font-size:50px;color: goldenrod;">
         Hit&Blow!
         <button id ="startBtn" onclick = "newGame()">START</button>
+        <button id ="submit" type="submit">送信</button>
     </div>
     <input type="number" id="inputArea">
+    <div id="outputArea"></div>
+
 
     <script>
         let inputNum = [];
         let queNum = [];
 
+        //スタートボタンクリック時に重複のないランダムな4桁の数字を出力
         function newGame(){
             const numList = ["0","1","2","3","4","5","6","7","8","9"]; 
             for(let i=0; i<4; i++){
@@ -35,13 +44,33 @@
                 queNum[i] = numList[ran];
                 numList.splice(ran,1);
             }
-            console.log(queNum);  
-                      
-
-
+            console.log(queNum);            
         }
 
+        //数字の桁数と重複の判定
+        submit.addEventListener('click', function(){
+            inputNum = (document.getElementById("inputArea").value); 
+            document.getElementById("outputArea").textContent = "";
 
+            let digit = String(inputNum).length;
+
+            if(digit === 4){               
+                let splits = inputNum.split("");
+                let setNum = Array.from(new Set(splits)).length;
+                console.count(splits);
+                console.log(setNum);
+                
+
+                if(setNum < 4){
+                    document.getElementById("outputArea").textContent = ("数字は重複しないようにしてください");
+                    return
+                }
+            } else {
+                document.getElementById("outputArea").textContent = ("数字は4桁で入力してください");
+                return
+            }
+
+        });
 
     </script>
 
