@@ -33,7 +33,6 @@
 
 
     <script>
-        let array = [];
         let inputNum = [];
         let queNum = [];
 
@@ -54,14 +53,13 @@
             document.getElementById("outputArea").textContent = "";
 
             let digit = String(inputNum).length;
-            //let setNum  = Array.from(new Set(inputNum));
-            //document.getElementById("outputArea").textContent = ("数字は重複しないようにしてください");
 
             if(digit === 4){               
                 let splits = inputNum.split("");
                 let setNum = Array.from(new Set(splits)).length;
+                console.count(splits);
                 console.log(setNum);
-                console.log(splits);
+                
 
                 if(setNum < 4){
                     document.getElementById("outputArea").textContent = ("数字は重複しないようにしてください");
@@ -70,21 +68,9 @@
             } else {
                 document.getElementById("outputArea").textContent = ("数字は4桁で入力してください");
                 return
-
             }
 
-        
-            judge();
-
         });
-
-        function judge(){
-
-        }
-
-
-
-
 
     </script>
 
