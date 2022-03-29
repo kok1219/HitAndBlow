@@ -18,26 +18,38 @@
     #submit,#startBtn{
         width: 60px;
         height: 25px;
+        justify-content: center;
     }
 
 </style>
 
 <body>
-    <div style = "font-size:50px;color: goldenrod;">
-        Hit&Blow!
-        <button id ="startBtn" onclick = "newGame()">START</button>
-        <button id ="submit" type="submit">送信</button>
-    </div>
-    <input type="number" id="inputArea">
+    <div style = "font-size:50px;color: goldenrod;">Hit&Blow!</div>
+    <p id ="start">スタートを押して4桁のランダムな数字を決定してくだい</p>
+    <div id ="select">0〜9までの4桁の数字を入力してください</div>
+    <input type="number" id="inputArea"><br>
+    <button id ="startBtn" onclick = "newGame()">START</button>
+    <button id ="submit" type="submit">送信</button>
     <div id="outputArea"></div>
 
 
     <script>
         let inputNum = [];
         let queNum = [];
+        let count = 0
+        let startBtn = document.getElementsByClassName('startBtn');
 
+        document.getElementById("select").style.visibility = "hidden";
+        document.getElementById("submit").style.visibility = "hidden";
+
+    
         //スタートボタンクリック時に重複のないランダムな4桁の数字を出力
         function newGame(){
+            document.getElementById("startBtn").style.visibility = "hidden";
+            document.getElementById("start").style.visibility = "hidden";
+            document.getElementById("select").style.visibility = "visible";
+            document.getElementById("submit").style.visibility = "visible";
+
             const numList = ["0","1","2","3","4","5","6","7","8","9"]; 
             for(let i=0; i<4; i++){
                 let ran = Math.floor(Math.random() * numList.length);
@@ -49,7 +61,7 @@
 
         //数字の桁数と重複の判定
         submit.addEventListener('click', function(){
-            inputNum = (document.getElementById("inputArea").value); 
+            inputNum = (document.getElementById("inputArea").value);
             document.getElementById("outputArea").textContent = "";
 
             let digit = String(inputNum).length;
@@ -57,19 +69,22 @@
             if(digit === 4){               
                 let splits = inputNum.split("");
                 let setNum = Array.from(new Set(splits)).length;
-                console.count(splits);
+                console.log(splits);
                 console.log(setNum);
                 
-
                 if(setNum < 4){
                     document.getElementById("outputArea").textContent = ("数字は重複しないようにしてください");
                     return
                 }
+
+                //count++;
+                //console.log(count);
+
             } else {
                 document.getElementById("outputArea").textContent = ("数字は4桁で入力してください");
                 return
             }
-
+            document.getElementById("inputArea").value = "";
         });
 
     </script>
