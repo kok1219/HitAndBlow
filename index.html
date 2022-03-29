@@ -36,6 +36,7 @@
     <script>
         let inputNum = [];
         let queNum = [];
+        let count = 0
         let startBtn = document.getElementsByClassName('startBtn');
 
         document.getElementById("select").style.visibility = "hidden";
@@ -58,7 +59,6 @@
             console.log(queNum);            
         }
 
-
         //数字の桁数と重複の判定
         submit.addEventListener('click', function(){
             inputNum = (document.getElementById("inputArea").value);
@@ -69,16 +69,17 @@
             if(digit === 4){               
                 let splits = inputNum.split("");
                 let setNum = Array.from(new Set(splits)).length;
-                let count = 0
-
-                count++;
-                console.count(splits);
+                console.log(splits);
                 console.log(setNum);
                 
                 if(setNum < 4){
                     document.getElementById("outputArea").textContent = ("数字は重複しないようにしてください");
                     return
                 }
+
+                //count++;
+                //console.log(count);
+
             } else {
                 document.getElementById("outputArea").textContent = ("数字は4桁で入力してください");
                 return
