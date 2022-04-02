@@ -17,12 +17,14 @@
     }
     #submit{
         width: 200px;
-        height: 25px;
+        height: 50px;
+        font-size: 20px;
         justify-content: center;
     }
     #startBtn{
         width: 200px;
         height: 50px;
+        font-size: 30px;
         justify-content: center;
     }
 
@@ -56,6 +58,8 @@
             document.getElementById("select").style.visibility = "visible";
             document.getElementById("submit").style.visibility = "visible";
             document.getElementById("inputArea").style.visibility = "visible";
+            document.getElementById("outputArea").style.visibility = "visible";
+
 
             const numList = ["0","1","2","3","4","5","6","7","8","9"]; 
             for(let i=0; i<4; i++){
@@ -63,6 +67,7 @@
                 queNum[i] = numList[ran];
                 numList.splice(ran,1);
             }
+            count = 0;
             console.log(queNum);            
         }
 
@@ -112,6 +117,16 @@
             let result = document.getElementById("outputArea");
             result.innerText ="【" + count + "回目】" +"  " +
              hit + " HIT / " + blow + " BLOW ";
+
+            //クリアの表示とリセット
+             if(hit == 4){
+                 alert(count + "回目で正解です");
+                 document.getElementById("startBtn").style.visibility = "visible";
+                 document.getElementById("select").style.visibility = "hidden";
+                 document.getElementById("submit").style.visibility = "hidden";
+                 document.getElementById("inputArea").style.visibility = "hidden";
+                 outputArea.innerText = "";
+             }
         }
 
 
