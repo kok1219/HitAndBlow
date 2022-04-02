@@ -8,16 +8,21 @@
 </head>
 <style>
     #inputArea{
-        width: 150px;
+        width: 200px;
         height: 50px;
         background-color: wheat;
         text-align: center;
         border: solid 3px greenyellow;
         font-size: 30px;
     }
-    #submit,#startBtn{
-        width: 60px;
+    #submit{
+        width: 200px;
         height: 25px;
+        justify-content: center;
+    }
+    #startBtn{
+        width: 200px;
+        height: 50px;
         justify-content: center;
     }
 
@@ -26,9 +31,9 @@
 <body>
     <div style = "font-size:50px;color: goldenrod;">Hit&Blow!</div>
     <p id ="start">スタートを押して4桁のランダムな数字を決定してくだい</p>
+    <button id ="startBtn" onclick = "newGame()">START</button>
     <div id ="select">0〜9までの4桁の数字を入力してください</div>
     <input type="number" id="inputArea" min="0" max="9999"><br>
-    <button id ="startBtn" onclick = "newGame()">START</button>
     <button id ="submit" type="submit">送信</button>
     <div id="outputArea"></div>
 
@@ -41,6 +46,7 @@
 
         document.getElementById("select").style.visibility = "hidden";
         document.getElementById("submit").style.visibility = "hidden";
+        document.getElementById("inputArea").style.visibility = "hidden";
 
     
         //スタートボタンクリック時に重複のないランダムな4桁の数字を出力
@@ -49,6 +55,7 @@
             document.getElementById("start").style.visibility = "hidden";
             document.getElementById("select").style.visibility = "visible";
             document.getElementById("submit").style.visibility = "visible";
+            document.getElementById("inputArea").style.visibility = "visible";
 
             const numList = ["0","1","2","3","4","5","6","7","8","9"]; 
             for(let i=0; i<4; i++){
@@ -80,12 +87,38 @@
                 count++;
                 console.log(count);
 
+                judge();
+
             } else {
                 document.getElementById("outputArea").textContent = ("数字は4桁で入力してください");
                 return
             }
             document.getElementById("inputArea").value = "";
         });
+
+
+        //4桁の乱数と4桁の入力された数字の比較
+        function judge(){
+            hit = 0;
+            blow =0;
+            for(let i=0; i<4; i++){
+               if(inputNum[i] == queNum[i]){
+                   hit += 1;
+               } else if(queNum.indexOf(inputNum[i]) != -1){
+                   blow += 1;
+               }
+            }
+
+            let result = document.getElementById("outputArea");
+            result.innerText ="【" + count + "回目】" +"  " +
+             hit + " HIT / " + blow + " BLOW ";
+        }
+
+
+
+
+
+
 
     </script>
 
