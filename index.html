@@ -1,150 +1,137 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<style>
-    #inputArea{
-        width: 200px;
-        height: 50px;
-        background-color: wheat;
-        text-align: center;
-        border: solid 3px greenyellow;
-        font-size: 30px;
+  </head>
+  <style>
+    #inputArea {
+      width: 200px;
+      height: 50px;
+      background-color: wheat;
+      text-align: center;
+      border: solid 3px greenyellow;
+      font-size: 30px;
     }
-    #submit{
-        width: 200px;
-        height: 50px;
-        font-size: 20px;
-        justify-content: center;
+    #submit {
+      width: 200px;
+      height: 50px;
+      font-size: 20px;
+      justify-content: center;
     }
-    #startBtn{
-        width: 200px;
-        height: 50px;
-        font-size: 30px;
-        justify-content: center;
+    #startBtn {
+      width: 200px;
+      height: 50px;
+      font-size: 30px;
+      justify-content: center;
     }
+  </style>
 
-</style>
-
-<body>
-    <div style = "font-size:50px;color: goldenrod;">Hit&Blow!</div>
-    <p id ="start">スタートを押して4桁のランダムな数字を決定してくだい</p>
-    <button id ="startBtn" onclick = "newGame()">START</button>
-    <div id ="select">0〜9までの4桁の数字を入力してください</div>
-    <input type="number" id="inputArea" min="0" max="9999"><br>
-    <button id ="submit" type="submit">送信</button>
+  <body>
+    <div style="font-size: 50px; color: goldenrod">Hit&Blow!</div>
+    <p id="start">スタートを押して4桁のランダムな数字を決定してくだい</p>
+    <button id="startBtn" onclick="newGame()">START</button>
+    <div id="select">0〜9までの4桁の数字を入力してください</div>
+    <input type="number" id="inputArea" min="0" max="9999" /><br />
+    <button id="submit" type="submit">送信</button>
     <div id="outputArea"></div>
 
-
     <script>
-        let queNum = [];
-        let count = 0;
-        const standardDigits = 4;
-        let startBtn = document.getElementsByClassName('startBtn');
+      let queNum = [];
+      let count = 0;
+      const standardDigits = 4;
+      let startBtn = document.getElementsByClassName("startBtn");
 
-        document.getElementById("select").style.visibility = "hidden";
-        document.getElementById("submit").style.visibility = "hidden";
-        document.getElementById("inputArea").style.visibility = "hidden";
+      document.getElementById("select").style.visibility = "hidden";
+      document.getElementById("submit").style.visibility = "hidden";
+      document.getElementById("inputArea").style.visibility = "hidden";
 
-    
-        //スタートボタンクリック時に重複のないランダムな4桁の数字を出力
-        function newGame(){
-            count = 0;
-            document.getElementById("startBtn").style.visibility = "hidden";
-            document.getElementById("start").style.visibility = "hidden";
-            document.getElementById("select").style.visibility = "visible";
-            document.getElementById("submit").style.visibility = "visible";
-            document.getElementById("inputArea").style.visibility = "visible";
-            document.getElementById("outputArea").style.visibility = "visible";
+      //スタートボタンクリック時に重複のないランダムな4桁の数字を出力
+      function newGame() {
+        count = 0;
+        document.getElementById("startBtn").style.visibility = "hidden";
+        document.getElementById("start").style.visibility = "hidden";
+        document.getElementById("select").style.visibility = "visible";
+        document.getElementById("submit").style.visibility = "visible";
+        document.getElementById("inputArea").style.visibility = "visible";
+        document.getElementById("outputArea").style.visibility = "visible";
 
+        const numList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-            const numList = [0,1,2,3,4,5,6,7,8,9];
+        while (queNum.length < standardDigits) {
+          let ran = numList[Math.floor(Math.random() * 10)];
+          if (queNum.includes(ran)) continue;
 
-            while(queNum.length < standardDigits){
-                let ran = numList[Math.floor(Math.random() * 10)];
-                if(queNum.includes(ran))continue
-              
-                queNum.push(ran);
-            }
-            console.log(queNum);            
+          queNum.push(ran);
         }
-        //数字の桁数と重複の判定
-        submit.addEventListener('click', function(){
-            document.getElementById("outputArea").textContent = "";
-            const inputValue = document.getElementById("inputArea").value;
-            const inputValueLength = String(inputValue).length;
+        console.log(queNum);
+      }
+      //数字の桁数と重複の判定
+      submit.addEventListener("click", function () {
+        document.getElementById("outputArea").textContent = "";
+        const inputValue = document.getElementById("inputArea").value;
+        const inputValueLength = String(inputValue).length;
+        const splitValues = inputValue.split("");
 
-            if(inputValueLength === standardDigits){   
-                const splits = inputValue.split("").map(Number);
-                console.log(splits);
+        if (inputValueLength !== standardDigits) {
+          document.getElementById("outputArea").textContent =
+            "数字は4桁で入力してください";
+          return;
+        }
+        console.log(splitValues);
 
-                for(let i=0; i<standardDigits; i++){
-                    if(isNaN(splits[i])){
-                        document.getElementById("outputArea").textContent = ("数字のみ入力してください");
-                        return
-                    }
-                }
-                
-                let setNum = Array.from(new Set(splits)).length;
-                console.log(setNum);              
-                if(setNum < standardDigits){
-                    document.getElementById("outputArea").textContent = ("数字は重複しないようにしてください");
-                    return
-                }
-
-                count++;
-                console.log(count);
-
-                judge();
-
-            } else {
-                document.getElementById("outputArea").textContent = ("数字は4桁で入力してください");
-                return
-            }
-            document.getElementById("inputArea").value = "";
-        });
-
-
-        //4桁の乱数と4桁の入力された数字の比較
-        function judge(){
-            hit = 0;
-            blow =0;
-            const inputValue = document.getElementById("inputArea").value;
-            const splits = inputValue.split("").map(Number);
-            for(let i=0; i<standardDigits; i++){
-               if(splits[i] == queNum[i]){
-                   hit += 1;
-               } else if(queNum.indexOf(inputValue[i]) != -1){
-                   blow += 1;
-               }
-            }
-
-            let result = document.getElementById("outputArea");
-            result.innerText ="【" + count + "回目】" +"  " +
-             hit + " HIT / " + blow + " BLOW ";
-
-            //クリアの表示とリセット
-             if(hit == standardDigits){
-                 alert(count + "回目で正解です");
-                 document.getElementById("startBtn").style.visibility = "visible";
-                 document.getElementById("select").style.visibility = "hidden";
-                 document.getElementById("submit").style.visibility = "hidden";
-                 document.getElementById("inputArea").style.visibility = "hidden";
-                 outputArea.innerText = "";
-             }
+        for (let i = 0; i < standardDigits; i++) {
+          if (isNaN(splitValues[i])) {
+            document.getElementById("outputArea").textContent =
+              "数字のみ入力してください";
+            return;
+          }
         }
 
+        const noDuplicatesCount = Array.from(new Set(splitValues)).length;
+        console.log(`重複のない数字の数: ${noDuplicatesCount}`);
+        if (noDuplicatesCount < standardDigits) {
+          document.getElementById("outputArea").textContent =
+            "数字は重複しないようにしてください";
+          return;
+        }
 
+        document.getElementById("inputArea").value = "";
+        count++;
+        console.log(`ゲーム試行回数: ${count}`);
+        judge();
+      });
 
+      //4桁の乱数と4桁の入力された数字の比較
+      function judge() {
+        let hit = 0;
+        let blow = 0;
+        const inputValue = document.getElementById("inputArea").value;
+        const splitValues = inputValue.split("").map(Number);
+        for (let i = 0; i < standardDigits; i++) {
+          if (splitValues[i] == queNum[i]) {
+            hit += 1;
+          } else if (queNum.indexOf(inputValue[i]) != -1) {
+            blow += 1;
+          }
+        }
 
+        let result = document.getElementById("outputArea");
+        result.innerText =
+          "【" + count + "回目】" + "  " + hit + " HIT / " + blow + " BLOW ";
 
-
-
+        //クリアの表示とリセット
+        if (hit == standardDigits) {
+          alert(count + "回目で正解です");
+          document.getElementById("startBtn").style.visibility = "visible";
+          document.getElementById("select").style.visibility = "hidden";
+          document.getElementById("submit").style.visibility = "hidden";
+          document.getElementById("inputArea").style.visibility = "hidden";
+          outputArea.innerText = "";
+        }
+      }
     </script>
-
-</body>
+  </body>
 </html>
